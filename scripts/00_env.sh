@@ -4,7 +4,7 @@
 # (nunca fica salva em arquivo nem no repositorio).
 
 export RM=563454
-export LOCATION=chilecentral
+export LOCATION=brazilsouth
 export RG="rg-dimdim-rm${RM}"
 export SQL_SERVER="sqldimdimrm${RM}"
 export SQL_DB=dimdimdb
