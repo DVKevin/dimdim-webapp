@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="900" height="420" fill="#f1f5f9"/>
+  <rect x="190" y="20" width="690" height="380" rx="14" fill="#e0f2fe" stroke="#0078d4" stroke-width="2"/>
+  <text x="210" y="46" font-size="15" font-weight="bold" fill="#0078d4">Microsoft Azure - Resource Group rg-dimdim-rm563454 (Brazil South)</text>
+  <rect x="20" y="170" width="140" height="70" rx="10" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="90" y="200" font-size="14" text-anchor="middle" font-weight="bold">Usuario</text>
+  <text x="90" y="220" font-size="12" text-anchor="middle">Navegador</text>
+  <rect x="250" y="150" width="210" height="110" rx="10" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+  <text x="355" y="180" font-size="14" text-anchor="middle" font-weight="bold">Azure App Service</text>
+  <text x="355" y="202" font-size="12" text-anchor="middle">Web App Linux - Java 17</text>
+  <text x="355" y="220" font-size="12" text-anchor="middle">Spring Boot + Thymeleaf</text>
+  <text x="355" y="238" font-size="12" text-anchor="middle">API REST /api/clientes /api/contas</text>
+  <rect x="630" y="150" width="220" height="110" rx="10" fill="#fff" stroke="#0078d4" stroke-width="2"/>
+  <text x="740" y="180" font-size="14" text-anchor="middle" font-weight="bold">Azure SQL Database (PaaS)</text>
+  <text x="740" y="204" font-size="12" text-anchor="middle">dimdimdb - SKU Basic</text>
+  <text x="740" y="224" font-size="12" text-anchor="middle">TB_CLIENTE (1) --- (N) TB_CONTA</text>
+  <rect x="250" y="310" width="210" height="70" rx="10" fill="#fff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="355" y="338" font-size="14" text-anchor="middle" font-weight="bold">Application Insights</text>
+  <text x="355" y="358" font-size="12" text-anchor="middle">+ Log Analytics (telemetria)</text>
+  <rect x="630" y="310" width="220" height="70" rx="10" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+  <text x="740" y="338" font-size="14" text-anchor="middle" font-weight="bold">Azure CLI</text>
+  <text x="740" y="358" font-size="12" text-anchor="middle">scripts/ + az webapp deploy</text>
+  <line x1="160" y1="205" x2="250" y2="205" stroke="#334155" stroke-width="2"/>
+  <text x="205" y="196" font-size="11" text-anchor="middle">HTTPS</text>
+  <line x1="460" y1="205" x2="630" y2="205" stroke="#334155" stroke-width="2"/>
+  <text x="545" y="196" font-size="11" text-anchor="middle">JDBC / 1433</text>
+  <line x1="355" y1="260" x2="355" y2="310" stroke="#7c3aed" stroke-width="2"/>
+  <line x1="740" y1="310" x2="740" y2="260" stroke="#16a34a" stroke-width="2"/>
+  <text x="752" y="290" font-size="11">provisiona e publica</text>
+</svg>

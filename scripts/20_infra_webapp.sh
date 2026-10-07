@@ -9,11 +9,11 @@ set -euo pipefail
 : "${SQL_PASS:?Execute antes: source scripts/00_env.sh}"
 
 PLAN_SKU="${PLAN_SKU:-F1}"
-RUNTIME="${RUNTIME:-JAVA:17-java17}"
+RUNTIME="${RUNTIME:-JAVA|17-java17}"
 
 echo "[0/7] Validando runtime ${RUNTIME}..."
 RUNTIMES=$(az webapp list-runtimes --os-type linux --output tsv)
-if ! grep -qixF "$RUNTIME" <<< "$RUNTIMES"; then
+if ! grep -q "^${RUNTIME}[[:space:]]" <<< "$RUNTIMES"; then
   echo "ERRO: runtime ${RUNTIME} nao disponivel. Runtimes Java encontrados:"
   grep -i java <<< "$RUNTIMES" || true
   exit 1
@@ -26,7 +26,7 @@ echo "[2/7] Criando App Service Plan ${PLAN} (SKU ${PLAN_SKU}, Linux)..."
 az appservice plan create \
   --name "$PLAN" \
   --resource-group "$RG" \
-  --location "$LOCATION" \
+  --location "${WEB_LOCATION:-$LOCATION}" \
   --sku "$PLAN_SKU" \
   --is-linux \
   --query "{plano:name, sku:sku.name, regiao:location}" \
@@ -45,7 +45,7 @@ echo "[4/7] Criando Log Analytics ${LAW} e Application Insights ${APPI}..."
 az monitor log-analytics workspace create \
   --resource-group "$RG" \
   --workspace-name "$LAW" \
-  --location "$LOCATION" \
+  --location "${WEB_LOCATION:-$LOCATION}" \
   --query "{workspace:name, regiao:location}" \
   --output table
 
@@ -54,7 +54,7 @@ LAW_ID=$(az monitor log-analytics workspace show \
 
 az monitor app-insights component create \
   --app "$APPI" \
-  --location "$LOCATION" \
+  --location "${WEB_LOCATION:-$LOCATION}" \
   --resource-group "$RG" \
   --workspace "$LAW_ID" \
   --kind web \
