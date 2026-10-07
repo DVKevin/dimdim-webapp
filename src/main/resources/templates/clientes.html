@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DimDim - Clientes</title>
+    <link rel="stylesheet" th:href="@{/css/dimdim.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main>
+    <div th:if="${msg}" class="alert ok" th:text="${msg}"></div>
+    <div th:if="${erro}" class="alert erro" th:text="${erro}"></div>
+
+    <section class="card">
+        <h2 th:text="${edicao != null ? 'Editar cliente #' + edicao.id() : 'Novo cliente'}">Novo cliente</h2>
+        <form th:action="@{${acao}}" method="post" class="form">
+            <label>Nome
+                <input type="text" name="nome" maxlength="100" required
+                       th:value="${edicao != null ? edicao.nome() : ''}">
+            </label>
+            <label>CPF
+                <input type="text" name="cpf" maxlength="14" required placeholder="000.000.000-00"
+                       th:value="${edicao != null ? edicao.cpf() : ''}">
+            </label>
+            <label>E-mail
+                <input type="email" name="email" maxlength="120" required
+                       th:value="${edicao != null ? edicao.email() : ''}">
+            </label>
+            <div class="actions">
+                <button type="submit" class="btn primary" th:text="${edicao != null ? 'Salvar alteracoes' : 'Cadastrar'}">Cadastrar</button>
+                <a th:if="${edicao != null}" class="btn" th:href="@{/clientes}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Clientes</h2>
+        <table>
+            <thead>
+            <tr><th>ID</th><th>Nome</th><th>CPF</th><th>E-mail</th><th>Cadastro</th><th>Acoes</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${clientes}">
+                <td th:text="${c.id()}"></td>
+                <td th:text="${c.nome()}"></td>
+                <td th:text="${c.cpf()}"></td>
+                <td th:text="${c.email()}"></td>
+                <td th:text="${c.dtCadastro()}"></td>
+                <td class="row-actions">
+                    <a class="btn" th:href="@{/clientes(editar=${c.id()})}">Editar</a>
+                    <form th:action="@{/clientes/{id}/excluir(id=${c.id()})}" method="post"
+                          onsubmit="return confirm('Excluir este cliente?');">
+                        <button type="submit" class="btn danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(clientes)}"><td colspan="6" class="vazio">Nenhum cliente cadastrado.</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

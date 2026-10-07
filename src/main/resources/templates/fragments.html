@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="nav" class="topbar">
+    <div class="brand">Dim<span>Dim</span></div>
+    <nav>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/clientes}">Clientes</a>
+        <a th:href="@{/contas}">Contas</a>
+    </nav>
+</header>
+</body>
+</html>

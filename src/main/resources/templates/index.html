@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DimDim - Inicio</title>
+    <link rel="stylesheet" th:href="@{/css/dimdim.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main>
+    <section class="hero">
+        <h1>Bem-vindo ao DimDim</h1>
+        <p>Gestao de clientes e contas bancarias na nuvem Azure: Web App + Azure SQL Database + Application Insights.</p>
+    </section>
+    <section class="grid">
+        <a class="card stat" th:href="@{/clientes}">
+            <span class="num" th:text="${totalClientes}">0</span>
+            <span>Clientes cadastrados</span>
+        </a>
+        <a class="card stat" th:href="@{/contas}">
+            <span class="num" th:text="${totalContas}">0</span>
+            <span>Contas abertas</span>
+        </a>
+    </section>
+</main>
+</body>
+</html>

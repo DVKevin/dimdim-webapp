@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DimDim - Contas</title>
+    <link rel="stylesheet" th:href="@{/css/dimdim.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main>
+    <div th:if="${msg}" class="alert ok" th:text="${msg}"></div>
+    <div th:if="${erro}" class="alert erro" th:text="${erro}"></div>
+
+    <section class="card">
+        <h2 th:text="${edicao != null ? 'Editar conta #' + edicao.id() : 'Nova conta'}">Nova conta</h2>
+        <div th:if="${#lists.isEmpty(clientes)}" class="alert erro">Cadastre um cliente antes de abrir uma conta.</div>
+        <form th:action="@{${acao}}" method="post" class="form">
+            <label>Cliente
+                <select name="idCliente" required>
+                    <option th:each="cl : ${clientes}"
+                            th:value="${cl.id()}"
+                            th:text="${cl.id() + ' - ' + cl.nome()}"
+                            th:selected="${edicao != null and edicao.idCliente() == cl.id()}"></option>
+                </select>
+            </label>
+            <label>Numero da conta
+                <input type="text" name="numeroConta" maxlength="20" required placeholder="0001-1"
+                       th:value="${edicao != null ? edicao.numeroConta() : ''}">
+            </label>
+            <label>Tipo
+                <select name="tipoConta" required>
+                    <option value="CORRENTE" th:selected="${edicao != null and edicao.tipoConta() == 'CORRENTE'}">CORRENTE</option>
+                    <option value="POUPANCA" th:selected="${edicao != null and edicao.tipoConta() == 'POUPANCA'}">POUPANCA</option>
+                </select>
+            </label>
+            <label>Saldo (R$)
+                <input type="number" name="saldo" step="0.01" min="0" required
+                       th:value="${edicao != null ? edicao.saldo() : '0.00'}">
+            </label>
+            <div class="actions">
+                <button type="submit" class="btn primary" th:text="${edicao != null ? 'Salvar alteracoes' : 'Abrir conta'}">Abrir conta</button>
+                <a th:if="${edicao != null}" class="btn" th:href="@{/contas}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Contas</h2>
+        <table>
+            <thead>
+            <tr><th>ID</th><th>Cliente</th><th>Conta</th><th>Tipo</th><th>Saldo (R$)</th><th>Abertura</th><th>Acoes</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${contas}">
+                <td th:text="${c.id()}"></td>
+                <td th:text="${c.idCliente() + ' - ' + c.nomeCliente()}"></td>
+                <td th:text="${c.numeroConta()}"></td>
+                <td th:text="${c.tipoConta()}"></td>
+                <td th:text="${c.saldo()}"></td>
+                <td th:text="${c.dtAbertura()}"></td>
+                <td class="row-actions">
+                    <a class="btn" th:href="@{/contas(editar=${c.id()})}">Editar</a>
+                    <form th:action="@{/contas/{id}/excluir(id=${c.id()})}" method="post"
+                          onsubmit="return confirm('Excluir esta conta?');">
+                        <button type="submit" class="btn danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(contas)}"><td colspan="7" class="vazio">Nenhuma conta cadastrada.</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
